@@ -1,0 +1,24 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-header">
+      <% if @current_user %>
+        <%= link_to "LoginApp", users_path, :class => "navbar-brand"%>
+      <% else %>
+        <%= link_to "LoginApp", root_path, :class => "navbar-brand"%>
+      <% end %>
+  </div>
+  <nav class="navbar-collapse collapse" id="main-nav" role="navigation">
+    <ul class="nav navbar-nav navbar-right navigation-items">
+      <% if @current_user %>
+        <li class='navigation-item'><%= link_to 'ALL USERS', users_path %></li>
+        <li class='navigation-item'><%= link_to 'LOG OUT', logout_path, :method => :post, :data => {:confirm => "You Sure?"} %></li>
+      <% else %>
+        <% unless request.env['PATH_INFO'] == new_user_path %>
+        <li class='navigation-item'><%=link_to 'SIGN UP', new_user_path %></li>
+        <%end%>
+        <%unless request.env['PATH_INFO'] == root_path%>
+        <li class='navigation-item'><%=link_to "LOGIN", root_path %></li>
+        <%end%>
+      <% end %>
+    </ul>
+  </nav>
+</div>

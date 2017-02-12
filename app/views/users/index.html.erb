@@ -1,0 +1,31 @@
+<div class="page-header">
+  <h1>LoginApp Users</h1>
+</div>
+<% if flash[:notice] %>
+    <div class="alert alert-warning" role="alert">
+      <span><%= flash.now[:notice] %></span>
+    </div>
+  <% end %>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Role</th>
+  </tr>
+
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= link_to user_path(user) do %>
+        <% user.first_name +  ' ' + user.last_name %>
+        <% end %>
+      </td>
+      <td><%= user.email %></td>
+      <td><%= user.role %></td>
+      <td><%= link_to 'Edit', edit_user_path(user) %></td>
+      <td><%= link_to 'Remove', user_path(user), :method => :delete, :data => {:confirm => 'Are you sure you want to remove ' + user.first_name + ' ' + user.last_name + '?'} %></td>
+    </tr>
+  <% end %>
+</table>
